@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>
+     Interdiciplinariedade / História Ambiental
+    </title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#071021;color:#e6eef8;margin:0;padding:24px}
+    .card{background:#0b1220;padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);max-width:900px;margin:auto}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+    .tile{background:linear-gradient(180deg,#0f1724,#081426);padding:12px;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.02)}
+    button{background:#4ADE80;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .muted{color:#9fb0c7;font-size:13px}
+    #log{margin-top:12px;color:#ffd;white-space:pre-wrap;font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <h1>InterLab — Teste</h1>
+    <p class="muted"> Teste / Clique nos blocos! :).</p>
+
+    <div class="grid" id="map">
+      <div class="tile" data-topic="História"><strong>História</strong><div class="muted">Tempo e fontes</div></div>
+      <div class="tile" data-topic="Geografia"><strong>Geografia</strong><div class="muted">Lugar e escala</div></div>
+      <div class="tile" data-topic="Ecologia"><strong>Ecologia</strong><div class="muted">Ecosistemas</div></div>
+      <div class="tile" data-topic="Economia"><strong>Economia</strong><div class="muted">Incentivos</div></div>
+    </div>
+
+    <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
+      <button id="openQuiz">Abrir quiz</button>
+      <div class="muted" id="status">Status: pronto</div>
+    </div>
+
+    <div id="log" aria-live="polite"></div>
+  </div>
+
+  <script>
+    // proteção básica: só roda quando DOM estiver pronto
+    document.addEventListener('DOMContentLoaded', function(){
+      try {
+        const map = document.getElementById('map');
+        const tiles = map.querySelectorAll('.tile');
+        const log = document.getElementById('log');
+        const status = document.getElementById('status');
+
+        tiles.forEach(t => {
+          t.addEventListener('click', () => {
+            const topic = t.dataset.topic || 'tópico';
+            log.textContent = Você clicou em: ${topic};
+            status.textContent = Status: ${topic} selecionado;
+          });
+        });
+
+        document.getElementById('openQuiz').addEventListener('click', () => {
+          alert('Quiz: Pergunta exemplo. (Esta é a versão mínima funcionando.)');
+        });
+
+        // escreve uma mensagem curta para confirmar execução do script
+        log.textContent = 'Script carregado com sucesso. Clique em um bloco.';
+      } catch (err) {
+        // exibe erro no próprio HTML para facilitar depuração
+        const log = document.getElementById('log');
+        log.textContent = 'Erro no script: ' + (err && err.message ? err.message : String(err));
+      }
+    });
+  </script>
+</body>
+</html>
